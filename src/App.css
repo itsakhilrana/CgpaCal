@@ -42,8 +42,16 @@ input::placeholder{
 }
 
 input{
-  border-radius: 5px;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.342);
   padding: 5px;
-  background: rgba(255, 255, 255, 0.411);
+  background: transparent;
   color: white;
+}
+
+button:disabled,
+button[disabled]{
+  
+  background-color: #fd56569a;
+  color: #ffffff70;
 }

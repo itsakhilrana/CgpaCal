@@ -5,7 +5,7 @@ import './App.css'
 
 import Navbar from './components/Navbar'
 import Home from './components/Home'
-import Homee from './components/Homee'
+import Pagenotfound from './components/Pagenotfound'
 
 export const getSemDetails = createContext()
 export const setCgpaDetails = createContext()
@@ -60,9 +60,9 @@ function App() {
           <Navbar  />
           <Switch>
             <Route exact path="/"  component={Home} />
-            <Route path="/h"   component={Homee} />
+            
 
-            {/* <Route  component={PagenotFound} /> */}
+            <Route  component={Pagenotfound} />
           </Switch>
         </Router>
       </getSemDetails.Provider>

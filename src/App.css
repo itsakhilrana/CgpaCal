@@ -9,7 +9,7 @@ input::-webkit-inner-spin-button {
 
 .App {
   background-color: #191919;
-  color: antiquewhite;
+  color: #F3F4F6;
   font-family: Montserrat, sans-serif;
 }
 
@@ -46,12 +46,13 @@ input{
   border-bottom: 1px solid rgba(255, 255, 255, 0.342);
   padding: 5px;
   background: transparent;
-  color: white;
+  color: #F3F4F6;
+  
 }
 
 button:disabled,
 button[disabled]{
   
-  background-color: #fd56569a;
-  color: #ffffff70;
+  background-color: #ef4444a1;
+  color: #ffffff6b;
 }

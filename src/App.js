@@ -14,36 +14,36 @@ function App() {
   
   let initialState = {
     firstSem: {
-      cgpa: 0,
-      credit: 0,
+      cgpa: "",
+      credit: "",
     },
     secondSem: {
-      cgpa: 0,
-      credit: 0,
+      cgpa: "",
+      credit: "",
     },
     thirdSem: {
-      cgpa: 0,
-      credit: 0,
+      cgpa: "",
+      credit: "",
     },
     fourthSem: {
-      cgpa: 0,
-      credit: 0,
+      cgpa: "",
+      credit: "",
     },
     fivethSem: {
-      cgpa: 0,
-      credit: 0,
+      cgpa: "",
+      credit: "",
     },
     sixthSem: {
-      cgpa: 0,
-      credit: 0,
+      cgpa: "",
+      credit: "",
     },
     seventhSem: {
-      cgpa: 0,
-      credit: 0,
+      cgpa: "",
+      credit: "",
     },
     eightthSem: {
-      cgpa: 0,
-      credit: 0,
+      cgpa: "",
+      credit: "",
       
     },
   }

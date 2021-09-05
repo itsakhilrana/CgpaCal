@@ -1,11 +1,15 @@
 import React, { useState, useContext } from 'react'
 import { getSemDetails, setCgpaDetails } from '../App'
+import emailjs from 'emailjs-com';
 
 const Home = () => {
   const [state, setstate] = useContext(getSemDetails)
   const [myCgpa, setmyCgpa] = useContext(setCgpaDetails)
-  const [cgpa, setcgpa] = useState(0)
 
+  const [emailinfo, setEmailinfo] = useState(0)
+  
+
+  let totalYr = 0
   const [count, setcount] = useState(0)
 
   const inputDetails = [
@@ -62,43 +66,123 @@ const Home = () => {
     eightthSem,
   } = state
 
-  const calculateHandler = () => {
-    let firstYear = (
+  let firstYear = isNaN(
+    (
       (((parseFloat(firstSem.cgpa) * parseFloat(firstSem.credit)) / 10 +
         (parseFloat(secondSem.cgpa) * parseFloat(secondSem.credit)) / 10) /
         (parseFloat(firstSem.credit) + parseFloat(secondSem.credit))) *
       10
     ).toFixed(2)
-    let secondYear = (
+  )
+    ? 0
+    : (
+        (((parseFloat(firstSem.cgpa) * parseFloat(firstSem.credit)) / 10 +
+          (parseFloat(secondSem.cgpa) * parseFloat(secondSem.credit)) / 10) /
+          (parseFloat(firstSem.credit) + parseFloat(secondSem.credit))) *
+        10
+      ).toFixed(2)
+
+  let secondYear = isNaN(
+    (
       (((parseFloat(thirdSem.cgpa) * parseFloat(thirdSem.credit)) / 10 +
         (parseFloat(fourthSem.cgpa) * parseFloat(fourthSem.credit)) / 10) /
         (parseFloat(thirdSem.credit) + parseFloat(fourthSem.credit))) *
       10
     ).toFixed(2)
-    let thridYear = (
+  )
+    ? 0
+    : (
+        (((parseFloat(thirdSem.cgpa) * parseFloat(thirdSem.credit)) / 10 +
+          (parseFloat(fourthSem.cgpa) * parseFloat(fourthSem.credit)) / 10) /
+          (parseFloat(thirdSem.credit) + parseFloat(fourthSem.credit))) *
+        10
+      ).toFixed(2)
+
+  let thridYear = isNaN(
+    (
       (((parseFloat(fivethSem.cgpa) * parseFloat(fivethSem.credit)) / 10 +
         (parseFloat(sixthSem.cgpa) * parseFloat(sixthSem.credit)) / 10) /
         (parseFloat(fivethSem.credit) + parseFloat(sixthSem.credit))) *
       10
     ).toFixed(2)
-    let fourthYear = (
+  )
+    ? 0
+    : (
+        (((parseFloat(fivethSem.cgpa) * parseFloat(fivethSem.credit)) / 10 +
+          (parseFloat(sixthSem.cgpa) * parseFloat(sixthSem.credit)) / 10) /
+          (parseFloat(fivethSem.credit) + parseFloat(sixthSem.credit))) *
+        10
+      ).toFixed(2)
+  let fourthYear = isNaN(
+    (
       (((parseFloat(seventhSem.cgpa) * parseFloat(seventhSem.credit)) / 10 +
         (parseFloat(eightthSem.cgpa) * parseFloat(eightthSem.credit)) / 10) /
         (parseFloat(seventhSem.credit) + parseFloat(eightthSem.credit))) *
       10
     ).toFixed(2)
+  )
+    ? 0
+    : (
+        (((parseFloat(seventhSem.cgpa) * parseFloat(seventhSem.credit)) / 10 +
+          (parseFloat(eightthSem.cgpa) * parseFloat(eightthSem.credit)) / 10) /
+          (parseFloat(seventhSem.credit) + parseFloat(eightthSem.credit))) *
+        10
+      ).toFixed(2)
 
+  const calculateHandler = async (e) => {
     //setcgpa((firstYear + secondYear + thridYear, fourthYear) / 4)
-
-    let sum = parseFloat(firstYear) + parseFloat(secondYear) + parseFloat(thridYear) + parseFloat(fourthYear)
-    let finalCgpa = parseFloat(sum/4).toFixed(1)
-    setmyCgpa(
-      finalCgpa
-    )
+    // console.log(firstYear)
+    // console.log(secondYear)
+    // console.log(thridYear)
+    // console.log(fourthYear)
+    e.preventDefault();
+    
+    let sum =
+      parseFloat(firstYear) +
+      parseFloat(secondYear) +
+      parseFloat(thridYear) +
+      parseFloat(fourthYear)
+    //console.log(sum)
+    let finalCgpa = await parseFloat(sum / totalYr).toFixed(1)
+    //console.log(finalCgpa)
+    setEmailinfo(finalCgpa)
+    setmyCgpa(finalCgpa)
+    
+    //console.log(emailinfo)
+    // EmailJs
+    emailjs.sendForm('service_rsxdnc9', 'template_q81ds8j', e.target, 'user_X0AH5ylezOGBkORtifGdy')
+                        .then((result) => {
+                            console.log(result.text);
+                        }, (error) => {
+                            console.log(error.text);
+                        });
   }
 
-  console.log(state)
-  console.log('com render')
+  if (firstYear !== 0) {
+    totalYr = totalYr + 1
+  }
+
+  if (secondYear !== 0) {
+    totalYr = totalYr + 1
+  }
+
+  if (thridYear !== 0) {
+    totalYr = totalYr + 1
+  }
+
+  if (fourthYear !== 0) {
+    totalYr = totalYr + 1
+  }
+
+  // console.log("total yr", totalYr)
+  // console.log(state)
+  // console.log('com render')
+
+  // console.log(firstSem.cgpa)
+  // console.log(parseFloat(firstYear))
+  //   console.log(secondYear)
+  //   console.log(thridYear)
+  //   console.log(fourthYear)
 
   const nextHandler = () => {
     setcount(count + 1)
@@ -115,16 +199,26 @@ const Home = () => {
           <div className="mt-16 text-4xl w-4/5 font-semibold  text-gray-100 sm:text-2xl md:text-4xl sm:font-semibold  md:w-2/4 md:mt-0">
             <p className="">We came, We saw, We conquered!</p>
           </div>
+          <form onSubmit={calculateHandler}>
           <div className="cgpaCard mt-8 md:mt-16 sm:w-2/4 md:w-2/4 mx-auto">
             <div>
               <h1 className="text-red-500 font-semibold text-4xl mb-5">
                 {inputDetails[count].sem}
               </h1>
+              <input
+              className="hidden"
+             type="text" 
+             placeholder="Email"
+             name="email"
+             value={emailinfo}
+             
+             ></input>
               <div className="mb-5">
                 <label>Cgpa</label>
                 <input
                   className="w-full  text-8xl"
                   type="number"
+                  
                   value={
                     inputDetails[count].myState[inputDetails[count].name].cgpa
                   }
@@ -189,15 +283,23 @@ const Home = () => {
                   <p>Next</p>
                 </button>
               ) : (
-                <div
-                  onClick={calculateHandler}
+                <button
+                  type="submit"
+                  disabled={
+                    inputDetails[count].myState[inputDetails[count].name]
+                      .cgpa &&
+                    inputDetails[count].myState[inputDetails[count].name].credit
+                      ? false
+                      : true
+                  }
                   className="  p-4 w-full  h-12 flex justify-center items-center font-bold bg-gray-100 rounded-lg text-red-500 "
                 >
                   <p>Calculate</p>
-                </div>
+                </button>
               )}
             </div>
           </div>
+          </form>
         </div>
       </div>
     </div>

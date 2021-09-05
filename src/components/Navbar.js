@@ -1,5 +1,5 @@
-import React, {useContext, useState} from 'react'
-import { getSemDetails, setCgpaDetails} from '../App'
+import React, {useContext} from 'react'
+import {setCgpaDetails} from '../App'
 
 const Navbar = () => {
 
